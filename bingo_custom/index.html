@@ -1,0 +1,49 @@
+<html>
+
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Cambay' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
+<meta charset="utf-8" />
+<title>Bingo</title>
+
+<link rel="stylesheet" type="text/css" href="bingo.css" />
+
+<script type="text/javascript" src="bingo.js"></script>
+
+</head>
+
+<body onload=generate()>
+
+<div id="hideme">
+    Chceš zmeniť obrázok? daj ho sem:  <input type='file'/></br>
+    <a href="#" onclick="document.getElementById('hideme').style.display='none';"> Nie, chcem len Machovsiko a nechcem aby mi tu zavadzal tento text. </a> (ak by Ti chýbal, refresh to napraví)
+</div>
+
+<div id="container">
+    <div id="header">
+    </div>
+	<div id="content">
+	</div>
+	
+<script>
+window.addEventListener('load', function() {
+  document.querySelector('input[type="file"]').addEventListener('change', function() {
+      if (this.files && this.files[0]) {
+          var img = document.querySelectorAll('img');
+          img.onload = () => {
+              URL.revokeObjectURL(img.src);  // no longer needed, free memory
+          }
+
+          img.forEach((i) => {
+            i.src = URL.createObjectURL(this.files[0]);
+          });
+          
+          //img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+      }
+  });
+});
+</script>
+
+</body>
+
+</html>
